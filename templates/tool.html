@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tool</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+  <nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('tool') }}">TextTool</a>
+      <div class="d-flex gap-3">
+        <div class="align-self-center">Logged in: <strong>{{ session.username }}</strong></div>
+        <a class="btn btn-outline-secondary btn-sm" href="{{ url_for('logout') }}">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-5">
+    <div class="card mx-auto" style="max-width:900px;">
+      <div class="card-body">
+        <h4 class="card-title">Summarize or Paraphrase</h4>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, msg in messages %}
+              <div class="alert alert-{{ 'danger' if category=='danger' else 'success' if category=='success' else 'info' }}">{{ msg }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form method="post">
+          <div class="mb-3">
+            <textarea name="user_text" class="form-control" rows="8" placeholder="Enter text..." required>{{ original or '' }}</textarea>
+          </div>
+          <div class="mb-3 d-flex gap-2">
+            <button name="action" value="summarize" class="btn btn-primary">Summarize</button>
+            <button name="action" value="paraphrase" class="btn btn-secondary">Paraphrase</button>
+          </div>
+        </form>
+
+        {% if result %}
+          <hr>
+          <h5>Result ({{ action }})</h5>
+          <pre class="bg-light p-3 rounded">{{ result }}</pre>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>
