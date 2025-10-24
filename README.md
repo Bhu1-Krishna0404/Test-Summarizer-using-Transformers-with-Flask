@@ -22,3 +22,17 @@
 **Notes**
 - The first time you use Summarize/Paraphrase, transformers will download the T5 model (few hundred MB).
 - If you face memory or GPU issues, consider using `t5-small` (we already use t5-small) or a rule-based fallback.
+
+
+---
+
+### **5️⃣ Git commands to upload**
+```bash
+cd path/to/your/project
+git init
+git add .
+git commit -m "Initial commit with Flask summarizer project"
+git branch -M main
+git remote add origin https://github.com/username/test-summarizer-using-transformers-flask.git
+git push -u origin main
+
